@@ -1,7 +1,6 @@
 import React from "react";
 
 function NoteAppHeaderSearch({ onSearchChange }) {
-  console.log("Received onSearchChange:", onSearchChange);
   return (
     <div className="note-search">
       <input

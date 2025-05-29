@@ -10,13 +10,9 @@ class NoteAppBody extends React.Component {
     this.state = {
       notes: getInitialData(),
     }
-
-    this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
-    this.onDeleteHandler = this.onDeleteHandler.bind(this);
-    this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this); 
   }
 
- onAddNoteHandler({ title, body }){
+ onAddNoteHandler = ({ title, body }) =>{
   this.setState((prevState) => {
     return {
       notes: [
@@ -33,12 +29,12 @@ class NoteAppBody extends React.Component {
   });
  }
 
- onDeleteHandler(id) {
+ onDeleteHandler = (id) => {
    const notes = this.state.notes.filter(note => note.id !== id);
    this.setState({ notes });
  }
  
- onArchiveNoteHandler(id) {
+ onArchiveNoteHandler = (id) => {
   this.setState((prevState) => ({
     notes: prevState.notes.map((note) =>
       note.id === id ? { ...note, archived: !note.archived } : note
@@ -65,29 +61,23 @@ class NoteAppBody extends React.Component {
         <NoteInput addNote={this.onAddNoteHandler} />
 
         <h2>Catatan Aktif</h2>
-        {
-          filteredActiveNotes.length > 0 
-            ? (
-              <NoteItemList
-                notes={filteredActiveNotes}
-                onDelete={this.onDeleteHandler}
-                onArchive={this.onArchiveNoteHandler}
-              />
-            )
-            : <p className="notes-list__empty-message">Tidak ada catatan</p>
+        { filteredActiveNotes.length ? 
+        <NoteItemList
+          notes={filteredActiveNotes}
+          onDelete={this.onDeleteHandler}
+          onArchive={this.onArchiveNoteHandler}
+        /> : 
+        <p className="notes-list__empty-message">Tidak ada catatan</p> 
         }
-
+        
         <h2>Arsip</h2>
-        {
-          filteredArchivedNotes.length > 0
-            ? (
-              <NoteItemList
-                notes={filteredArchivedNotes}
-                onDelete={this.onDeleteHandler}
-                onArchive={this.onArchiveNoteHandler}
-              />
-            )
-            : <p className="notes-list__empty-message">Tidak ada catatan</p>
+        { !filteredArchivedNotes.length ? 
+        <p className="notes-list__empty-message">Tidak ada catatan</p> : 
+        <NoteItemList
+          notes={filteredArchivedNotes}
+          onDelete={this.onDeleteHandler}
+          onArchive={this.onArchiveNoteHandler}
+        /> 
         }
       </div>
     );
