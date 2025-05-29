@@ -10,13 +10,9 @@ class NoteInputForm extends React.Component{
             body: '',
             maxTitleChars: 50,
         }
-
-        this.onChangeFormInputTitleHandler = this.onChangeFormInputTitleHandler.bind(this);
-        this.onChangeFormInputBodyHandler = this.onChangeFormInputBodyHandler.bind(this);
-        this.onSubmitFormHandler = this.onSubmitFormHandler.bind(this);
     }
 
-    onChangeFormInputTitleHandler(event){
+    onChangeFormInputTitleHandler = (event) => {
         const inputValue = event.target.value;
 
         const limitedValue = inputValue.slice(0, this.state.maxTitleChars);
@@ -26,7 +22,7 @@ class NoteInputForm extends React.Component{
         }));
     }
 
-    onChangeFormInputBodyHandler(event){
+    onChangeFormInputBodyHandler = (event) => {
         this.setState(() => {
             return {
                 body: event.target.value,
@@ -34,7 +30,7 @@ class NoteInputForm extends React.Component{
         });
     }
 
-    onSubmitFormHandler(event){
+    onSubmitFormHandler = (event) =>{
         event.preventDefault();
         this.props.addNote(this.state);
         this.setState({ title: '', body: '' });
@@ -46,7 +42,7 @@ class NoteInputForm extends React.Component{
             <div className="note-input">
                 <form onSubmit={this.onSubmitFormHandler}>
                     <NoteInputTitleLimit remaining={remainingChars} />
-                    <input className="note-input__title" type="text" placeholder="Masukan Nama Judul..." value={this.state.title} onChange={this.onChangeFormInputTitleHandler} maxLength={this.state.maxTitleChars} />
+                    <input className="note-input__title" type="text" placeholder="Masukan Nama Judul..." value={this.state.title} onChange={this.onChangeFormInputTitleHandler} />
                     <textarea className="note-input__body" type="text" placeholder="Tuliskan Catatan-mu Disini...." value={this.state.body} onChange={this.onChangeFormInputBodyHandler} > </textarea>
                     <button type="submit"> Buat </button>
                 </form>

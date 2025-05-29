@@ -8,11 +8,9 @@ class NoteApp extends React.Component {
     this.state = {
       searchQuery: "",
     };
-
-    this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this);
   }
 
-  onSearchChangeHandler(keyword) {
+  onSearchChangeHandler = (keyword) => {
     this.setState({ searchQuery: keyword });
   }
 
